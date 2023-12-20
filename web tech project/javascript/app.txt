@@ -1,0 +1,65 @@
+const connectButton = document.querySelector("#connect-btn");  
+const registrationForm = document.querySelector(".registration-form");  
+const exitButton = document.querySelector(".exit");                    
+const navigationItems = document.querySelectorAll(".nav-li");        
+const links = document.querySelectorAll('.nav-a');                  
+const up = document.querySelector('.up-arrow');                    
+const body = document.querySelector("body");
+
+connectButton.addEventListener('click', function() {
+    registrationForm.style.display = 'flex';
+    body.style.overflow = 'hidden';
+});
+
+exitButton.addEventListener('click', function() {
+    registrationForm.style.display = 'none';
+    body.style.overflow = 'visible';
+});
+
+navigationItems.forEach((value, index, array) => {
+    value.addEventListener('click', function(e) {
+        e.preventDefault();
+        clearClassList();
+        addClass(array[index], 'semibold');
+    });
+});
+
+links.forEach(value => {
+    value.addEventListener('click', scrollHandler);
+});
+
+up.addEventListener('click', backHome);
+
+function addClass(item, value) {
+    item.classList.add(value);
+}
+
+function removeClass(item, value) {
+    item.classList.remove(value);
+}
+
+function clearClassList() {
+    navigationItems.forEach(value => {
+        value.classList.remove('semibold');
+    });
+}
+
+function scrollHandler(e) {
+    e.preventDefault();
+    const href = this.getAttribute('href');
+    const offsetTop = document.querySelector(href).offsetTop;
+
+    scroll({
+        top: offsetTop,
+        behavior: 'smooth'
+    });
+}
+
+function backHome(e) {
+    e.preventDefault();
+
+    scroll({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
